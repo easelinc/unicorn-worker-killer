@@ -57,7 +57,7 @@ module Unicorn::WorkerKiller
 
       if (@_worker_check_count % @_worker_check_cycle) == 0
         rss = _worker_rss()
-        logger.info "#{self}: worker (pid: #{Process.pid}) using #{rss} bytes."
+        logger.info "#{self}: worker (pid: #{Process.pid}) using #{rss} bytes, compared to #{@_worker_memory_limit}."
         if rss > @_worker_memory_limit
           logger.warn "#{self}: worker (pid: #{Process.pid}) exceeds memory limit (#{rss} bytes > #{@_worker_memory_limit} bytes)"
           Unicorn::WorkerKiller.kill_self(logger, @_worker_process_start)
